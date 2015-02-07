@@ -1,40 +1,37 @@
 
 public class SEIRChain extends MarkovChain {
-	
-	private double s;
-		private double s_0;
-	private double e;
-		private double e_0;
-	private double i;
-		private double i_0;
-	private double r;
-		private double r_0;
-	
+
+	private double s; // people susceptible
+	private double s_0;
+	private double e; // people exposed
+	private double e_0;
+	private double i; // people infectious
+	private double i_0;
+	private double r; // people removed
+	private double r_0;
+
 	private double n;
-	
+
 	private double h;
 	private double beta;
-	
+
 	private double p;
-	
+
 	private double _delt;
 	private double p_c;
-	
+
 	private double _gam;
 	private double p_r;
-	
-	
-	
+
 	/**
-	 * @param a
-	 * @param x_0
+	 * Constructor
+	 * @param a Matrix a, the stochastic matrix
+	 * @param x_0 Matrix x_0, the initial state vector
 	 */
 	public SEIRChain(Matrix a, Matrix x_0) {
 		super(a, x_0);
 	}
-	
-	
-	
+
 	/**
 	 * @param n
 	 * @param s_0
@@ -45,9 +42,9 @@ public class SEIRChain extends MarkovChain {
 	 * @param delt
 	 * @param gam
 	 */
-	public SEIRChain(double n, double s_0, double e_0, double i_0, double h, double beta, double delt, double gam) {
+	public SEIRChain(double n, double s_0, double e_0, double i_0, double beta, double gam, double delt) {
 		super();
-		
+
 		//Set initial fields
 		this.s_0 = s_0;
 		this.s = this.s_0;
@@ -62,15 +59,18 @@ public class SEIRChain extends MarkovChain {
 		this.r = this.r_0;
 		
 		this.n = n;
-		
+
 		this.h = h;
+		
 		this.beta = beta;
+
+		this.p = 1 - Math.pow(Math.E, (-beta * h * i_0) / n);
 		
 		setP();
 		
 		this._delt = 1/delt;
 		this.p_c = 1 - Math.pow(Math.E, -delt * h);
-		
+
 		this._gam = 1/gam;
 		this.p_r = 1 - Math.pow(Math.E, -gam * h);
 		
@@ -79,10 +79,9 @@ public class SEIRChain extends MarkovChain {
 		
 		//Set initial a matrix
 		this.setA();
+
 	}
-	
-	
-	
+
 	/**
 	 * @throws Exception
 	 */
