@@ -17,10 +17,10 @@ public class Matrix {
 	}
 	
 	
-	/**Returns the entry in the ith row and the jth column of this Matrix
-	 * @param i The index of the ith row
-	 * @param j The index of the jth column
-	 * @return The entry at (i,j)
+	/**
+	 * @param i
+	 * @param j
+	 * @return
 	 * @throws Exception 
 	 */
 	public double get(int i, int j) throws Exception {
