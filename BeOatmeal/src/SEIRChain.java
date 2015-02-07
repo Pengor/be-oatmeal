@@ -62,10 +62,13 @@ public class SEIRChain extends MarkovChain {
 		this.n = n;
 
 		this.h = h;
+		
 		this.beta = beta;
 
 		this.p = 1 - Math.pow(Math.E, (-beta * h * i_0) / n);
-
+		
+		setP();
+		
 		this._delt = 1/delt;
 		this.p_c = 1 - Math.pow(Math.E, -delt * h);
 
@@ -87,6 +90,10 @@ public class SEIRChain extends MarkovChain {
 	protected void iterate() throws Exception {
 		x_n.multL(a);
 		x_i.add(x_n.copy());
+	}
+	
+	private void setP() {
+		p = 1 - Math.pow(Math.E, (-beta * h * i) / n);
 	}
 	
 	private void setX_0() {
