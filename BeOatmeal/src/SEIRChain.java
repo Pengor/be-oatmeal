@@ -1,5 +1,5 @@
 
-public class SEIRSeries extends MarkovChain {
+public class SEIRChain extends MarkovChain {
 	
 	private double s;
 		private double s_0;
@@ -24,10 +24,12 @@ public class SEIRSeries extends MarkovChain {
 	private double p_r;
 	
 	
-	public SEIRSeries(Matrix a, Matrix x_0) {
+	public SEIRChain(Matrix a, Matrix x_0) {
 		super(a, x_0);
 	}
 	
+	
+	//public SEIRChain
 	
 	/**
 	 * @throws Exception
