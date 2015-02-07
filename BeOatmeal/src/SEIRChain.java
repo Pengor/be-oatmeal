@@ -48,7 +48,8 @@ public class SEIRChain extends MarkovChain {
 	 * @param delt
 	 * @param gam
 	 */
-	public SEIRChain(double n, double s_0, double e_0, double i_0, double beta, double gam, double delt) {
+	public SEIRChain(double n, double s_0, double e_0, double i_0, 
+			double beta, double h, double gam, double delt) {
 		super();
 
 		//Set initial fields
