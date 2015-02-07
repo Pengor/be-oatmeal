@@ -185,6 +185,32 @@ public class SEIRChain extends MarkovChain {
 		temp[3][2] = p_r;
 		temp[3][3] = 1;
 		
+		
+		/*temp[0][0] = 1 - p;
+		temp[0][1] = p;
+		temp[0][2] = 0;
+		temp[0][3] = 0;
+		
+		temp[1][0] = 0; 
+		temp[1][1] = 1 - p_c;
+		temp[1][2] = p_c;
+		temp[1][3] = 0;
+		
+		temp[2][0] = 0; 
+		temp[2][1] = 0;
+		temp[2][2] = 1 - p_r;
+		temp[2][3] = p_r;
+		
+		temp[3][0] = 0; 
+		temp[3][1] = 0;
+		temp[3][2] = 0;
+		temp[3][3] = 1;*/
+		
 		this.a = new Matrix(temp);
+	}
+	
+	
+	public double getP_r() {
+		return p_r;
 	}
 }

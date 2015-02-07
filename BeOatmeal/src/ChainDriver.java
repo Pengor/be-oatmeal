@@ -15,16 +15,20 @@ public class ChainDriver {
 		Charset charset = Charset.forName("US-ASCII");
 		try (BufferedWriter writer = Files.newBufferedWriter(out, charset)) {
 		    
-			SEIRChain mainChain = new SEIRChain(270114, 0.99574, 0.00123, 0.00123, 0.2, 1, 0.143, 0.2);
+			SEIRChain mainChain = new SEIRChain(270114, 0.99574, 0.00123, 0.00123, 0.2, 1000, 0.143, 0.2);
 			System.out.println("eehhhh");
+			writer.write("Iteration #,S,E,I,R,P_r,P_r * I\n");
 			
 			int i = 0;
 			mainChain.iterate();
 			Matrix tempMat = mainChain.getX_i().get(i);
-			while (tempMat.get(0, 1) > 0.0001 && tempMat.get(0, 2) > 0.0001) {
+			while (tempMat.get(1, 0) > 0.0001 && tempMat.get(2, 0) > 0.0001 && i < 1000000) {
 				
-				writer.write(i);
-				System.out.println("yo");
+				writer.write(i+"," + tempMat.get(0,0) + "," + tempMat.get(1,0) +
+						"," + tempMat.get(2,0) + "," + tempMat.get(3,0) + "," +
+						mainChain.getP_r() + "," + (mainChain.getP_r() * tempMat.get(2,0)) + 
+						"\n");
+				System.out.println(i);
 				
 				mainChain.iterate();
 				i++;
