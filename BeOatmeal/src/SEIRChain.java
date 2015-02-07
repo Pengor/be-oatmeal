@@ -33,6 +33,7 @@ public class SEIRChain extends MarkovChain {
 	}
 
 	/**
+	 * Constructor
 	 * @param n
 	 * @param s_0
 	 * @param e_0
@@ -83,18 +84,25 @@ public class SEIRChain extends MarkovChain {
 	}
 
 	/**
+	 * Generates the next state vector and stochastic matrix pair
 	 * @throws Exception
 	 */
 	@Override
 	protected void iterate() throws Exception {
 		x_n.multL(a);
 		x_i.add(x_n.copy());
+		s = x_n.get(0, 0);
+		e = x_n.get(1, 0);
+		i = x_n.get(2, 0);
+		r = x_n.get(3, 0);
+		setP();
+		setA();
 	}
 	
 	
 	
 	/**
-	 * 
+	 * Sets p based on current values of beta, h, i, and n
 	 */
 	private void setP() {
 		p = 1 - Math.pow(Math.E, (-beta * h * i) / n);
@@ -103,7 +111,7 @@ public class SEIRChain extends MarkovChain {
 	
 	
 	/**
-	 * 
+	 * Sets x_0 for current values of s, e, i, r
 	 */
 	private void setX_0() {
 		double[][] temp = new double[4][1];
@@ -118,7 +126,7 @@ public class SEIRChain extends MarkovChain {
 	
 	
 	/**
-	 * 
+	 * Sets matrix a based on current values of p, p_c, and p_r
 	 */
 	private void setA() {
 		double[][] temp = new double[4][4];
