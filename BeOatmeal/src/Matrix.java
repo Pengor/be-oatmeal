@@ -24,7 +24,7 @@ public class Matrix {
 	 * @throws Exception 
 	 */
 	public double get(int i, int j) throws Exception {
-		if (i < n && i >= 0 && j < m && j >= 0)
+		if (i < m && i >= 0 && j < n && j >= 0)
 			return nums[i][j];
 		else
 			throw new Exception();
@@ -160,13 +160,13 @@ public class Matrix {
 	 * @throws Exception 
 	 */
 	private static double[][] mult(Matrix x, Matrix y) throws Exception {
-		if (x.n != y.m)
+		if (x.m != y.n)
 			throw new Exception();
 		
-		double[][] temp = new double[x.n][y.m];
+		double[][] temp = new double[x.m][y.n];
 		
-		for (int i = 0; i < x.n; i++) {
-			for (int j = 0; j < y.m; j++) {
+		for (int i = 0; i < x.m; i++) {
+			for (int j = 0; j < y.n; j++) {
 				for (int k = 0; k < x.n; k++)
 					temp[i][j] += x.get(i,k) * y.get(k,j);
 			}
