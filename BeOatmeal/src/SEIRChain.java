@@ -23,6 +23,8 @@ public class SEIRChain extends MarkovChain {
 	private double _gam;
 	private double p_r;
 
+	
+	
 	/**
 	 * Constructor
 	 * @param a Matrix a, the stochastic matrix
@@ -32,6 +34,8 @@ public class SEIRChain extends MarkovChain {
 		super(a, x_0);
 	}
 
+	
+	
 	/**
 	 * @param n
 	 * @param s_0
@@ -82,6 +86,8 @@ public class SEIRChain extends MarkovChain {
 
 	}
 
+	
+	
 	/**
 	 * @throws Exception
 	 */
