@@ -70,8 +70,6 @@ public class SEIRChain extends MarkovChain {
 		this.h = h;
 		
 		this.beta = beta;
-
-		this.p = 1 - Math.pow(Math.E, (-beta * h * i_0) / n);
 		
 		setP();
 		
