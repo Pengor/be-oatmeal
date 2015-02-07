@@ -1,6 +1,4 @@
 import java.io.BufferedWriter;
-import java.io.IOException;
-import java.nio.*;
 import java.nio.charset.*;
 import java.nio.file.*;
 
@@ -16,20 +14,16 @@ public class ChainDriver {
 		try (BufferedWriter writer = Files.newBufferedWriter(out, charset)) {
 		    
 			SEIRChain mainChain = new SEIRChain(270114, 0.99574, 0.00123, 0.00123, 0.2, 1, 0.143, 0.2);
-			System.out.println("eehhhh");
-			writer.write("Iteration #,S,E,I,R,P_r,P_r * I\n");
+			writer.write("Iteration #,S,E,I,R\n");
 			
 			int i = 0;
 			mainChain.iterate();
 			Matrix tempMat = mainChain.getX_i().get(i);
-			while (tempMat.get(1, 0) > 0.0001 && tempMat.get(2, 0) > 0.0001 && i < 1000000) {
+			while (tempMat.get(1, 0) > 0.0001 && tempMat.get(2, 0) > 0.0001) {
 				
 				writer.write(i+"," + tempMat.get(0,0) + "," + tempMat.get(1,0) +
-						"," + tempMat.get(2,0) + "," + tempMat.get(3,0) + "," +
-						mainChain.getP_r() + "," + (mainChain.getP_r() * tempMat.get(2,0)) + 
-						"\n");
-				System.out.println(i);
-				
+						"," + tempMat.get(2,0) + "," + tempMat.get(3,0) + "\n");
+
 				mainChain.iterate();
 				i++;
 				tempMat = mainChain.getX_i().get(i);
