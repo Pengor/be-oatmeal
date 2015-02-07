@@ -73,6 +73,12 @@ public class Matrix {
 	}
 	
 	
+	/**
+	 * @param x
+	 * @param y
+	 * @return
+	 * @throws Exception
+	 */
 	private static double[][] add(Matrix x, Matrix y) throws Exception {
 		if (x.m != y.m || x.n != y.n)
 			throw new Exception();
@@ -89,9 +95,9 @@ public class Matrix {
 	}
 	
 	
-	/**
-	 * @param x
-	 * @return
+	/**Multiplies the given Matrix on the left of this Matrix and returns the result
+	 * @param x The given Matrix
+	 * @return The product of this Matrix with the given Matrix multiplied on the left
 	 * @throws Exception 
 	 */
 	public Matrix multLRet(Matrix x) throws Exception {
@@ -99,8 +105,8 @@ public class Matrix {
 	}
 	
 	
-	/**
-	 * @param x
+	/**Multiplies the given Matrix on the left of this Matrix and sets this Matrix to the result
+	 * @param x The given Matrix
 	 * @throws Exception 
 	 */
 	public void multL(Matrix x) throws Exception {
@@ -112,9 +118,9 @@ public class Matrix {
 	}
 	
 	
-	/**
-	 * @param x
-	 * @return
+	/**Multiplies the given Matrix on the right of this Matrix and returns the result
+	 * @param x The given Matrix
+	 * @return The product of this Matrix with the given Matrix multiplied on the right
 	 * @throws Exception 
 	 */
 	public Matrix multRRet(Matrix x) throws Exception {
@@ -122,8 +128,8 @@ public class Matrix {
 	}
 	
 	
-	/**
-	 * @param x
+	/**Multiplies the given Matrix on the right of this Matrix and sets this Matrix to the result
+	 * @param x The given Matrix
 	 * @throws Exception 
 	 */
 	public void multR(Matrix x) throws Exception {
@@ -135,10 +141,10 @@ public class Matrix {
 	}
 	
 	
-	/**
-	 * @param x
-	 * @param y
-	 * @return
+	/**Multiplies two matrices x and y
+	 * @param x Given Matrix x
+	 * @param y Given Matrix y
+	 * @return The product of the matrices as a new Matrix
 	 * @throws Exception 
 	 */
 	private static Matrix multRet(Matrix x, Matrix y) throws Exception {
@@ -147,9 +153,10 @@ public class Matrix {
 	}
 	
 	
-	/**
-	 * @param x
-	 * @param y
+	/**Multiplies two matrices x and y and returns the resulting Matrix' array
+	 * @param x Given Matrix x
+	 * @param y Given Matrix y
+	 * @return The array representation of the resulting Matrix
 	 * @throws Exception 
 	 */
 	private static double[][] mult(Matrix x, Matrix y) throws Exception {

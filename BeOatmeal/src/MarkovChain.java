@@ -9,6 +9,10 @@ public class MarkovChain {
 	protected ArrayList<Matrix> x_i;
 	
 	
+	protected MarkovChain() {
+		//What am I doing?
+	}
+	
 	/**
 	 * @param a
 	 * @param x_0
