@@ -24,11 +24,27 @@ public class SEIRChain extends MarkovChain {
 	private double p_r;
 	
 	
+	
+	/**
+	 * @param a
+	 * @param x_0
+	 */
 	public SEIRChain(Matrix a, Matrix x_0) {
 		super(a, x_0);
 	}
 	
 	
+	
+	/**
+	 * @param n
+	 * @param s_0
+	 * @param e_0
+	 * @param i_0
+	 * @param h
+	 * @param beta
+	 * @param delt
+	 * @param gam
+	 */
 	public SEIRChain(double n, double s_0, double e_0, double i_0, double h, double beta, double delt, double gam) {
 		super();
 		
@@ -65,6 +81,8 @@ public class SEIRChain extends MarkovChain {
 		this.setA();
 	}
 	
+	
+	
 	/**
 	 * @throws Exception
 	 */
@@ -74,10 +92,20 @@ public class SEIRChain extends MarkovChain {
 		x_i.add(x_n.copy());
 	}
 	
+	
+	
+	/**
+	 * 
+	 */
 	private void setP() {
 		p = 1 - Math.pow(Math.E, (-beta * h * i) / n);
 	}
 	
+	
+	
+	/**
+	 * 
+	 */
 	private void setX_0() {
 		double[][] temp = new double[4][1];
 		temp[0][0] = s;
@@ -88,6 +116,11 @@ public class SEIRChain extends MarkovChain {
 		this.x_0 = new Matrix(temp);
 	}
 	
+	
+	
+	/**
+	 * 
+	 */
 	private void setA() {
 		double[][] temp = new double[4][4];
 		
