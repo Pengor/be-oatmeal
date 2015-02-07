@@ -39,14 +39,14 @@ public class SEIRChain extends MarkovChain {
 	
 	/**
 	 * Constructor
-	 * @param n
-	 * @param s_0
-	 * @param e_0
-	 * @param i_0
-	 * @param h
-	 * @param beta
-	 * @param delt
-	 * @param gam
+	 * @param n The number of individuals in the population
+	 * @param s_0 The initial proportion of susceptible individuals
+	 * @param e_0 The initial proportion of exposed individuals
+	 * @param i_0 The initial proportion of infectious individuals
+	 * @param h The specified interval in time between iterations
+	 * @param beta The transmission parameter
+	 * @param delt The inverse of the mean incubation period
+	 * @param gam The inverse of the mean infectious period
 	 */
 	public SEIRChain(double n, double s_0, double e_0, double i_0, 
 			double beta, double h, double gam, double delt) {
@@ -143,7 +143,7 @@ public class SEIRChain extends MarkovChain {
 	
 	
 	/**
-	 * Sets matrix a based on current values of p, p_c, and p_r
+	 * Sets matrix based on current values of p, p_c, and p_r
 	 */
 	private void setA() {
 		double[][] temp = new double[4][4];
