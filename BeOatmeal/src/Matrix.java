@@ -31,10 +31,10 @@ public class Matrix {
 	}
 	
 	
-	/**
-	 * @param i
-	 * @param j
-	 * @param k
+	/**Sets the entry in the ith row and the jth column of this Matrix
+	 * @param i The index of the ith row
+	 * @param j The index of the jth column
+	 * @param k The value for (i,j) to be set to
 	 * @throws Exception
 	 */
 	public void set(int i, int j, double k) throws Exception {
@@ -45,8 +45,8 @@ public class Matrix {
 	}
 	
 	
-	/**
-	 * @return
+	/**Copies the existing matrix into a new Matrix
+	 * @return The new copy of this Matrix
 	 */
 	public Matrix copy() {
 		return new Matrix(nums);
