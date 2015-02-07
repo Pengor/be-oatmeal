@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 public class SEIRChain extends MarkovChain {
 
@@ -87,6 +88,15 @@ public class SEIRChain extends MarkovChain {
 
 	}
 
+	
+	
+	/**Returns the ArrayList of all x_i values
+	 * @return The ArrayList x_i
+	 */
+	public ArrayList<Matrix> getX_i() {
+		return x_i;
+	}
+	
 	
 	
 	/**
