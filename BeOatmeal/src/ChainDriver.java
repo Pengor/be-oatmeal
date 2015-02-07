@@ -15,7 +15,7 @@ public class ChainDriver {
 		Charset charset = Charset.forName("US-ASCII");
 		try (BufferedWriter writer = Files.newBufferedWriter(out, charset)) {
 		    
-			SEIRChain mainChain = new SEIRChain(270114, 0.99574, 0.00123, 0.00123, 0.2, 1000, 0.143, 0.2);
+			SEIRChain mainChain = new SEIRChain(270114, 0.99574, 0.00123, 0.00123, 0.2, 1, 0.143, 0.2);
 			System.out.println("eehhhh");
 			writer.write("Iteration #,S,E,I,R,P_r,P_r * I\n");
 			

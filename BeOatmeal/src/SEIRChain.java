@@ -77,7 +77,7 @@ public class SEIRChain extends MarkovChain {
 
 		this._gam = 1/gam;
 		this.p_r = 1 - Math.pow(Math.E, -gam * h);
-		
+
 		//Setup ArrayList for holding state vectors
 		this.x_i = new ArrayList<Matrix>();
 		
@@ -109,7 +109,7 @@ public class SEIRChain extends MarkovChain {
 	 */
 	@Override
 	protected void iterate() throws Exception {
-		x_n.multL(a);
+		x_n.multR(a);
 		x_i.add(x_n.copy());
 		
 		s = x_n.get(0, 0);
@@ -130,7 +130,7 @@ public class SEIRChain extends MarkovChain {
 	 * Sets p based on current values of beta, h, i, and n
 	 */
 	private void setP() {
-		p = 1 - Math.pow(Math.E, (-beta * h * i) / n);
+		p = 1 - Math.pow(Math.E, (-beta * h * i) /*/ n*/);
 	}
 	
 	
@@ -139,7 +139,7 @@ public class SEIRChain extends MarkovChain {
 	 * Calculates R_0 for the current parameters
 	 */
 	private void setR_0() {
-		r_0 = (beta * s * _gam) / n;
+		r_0 = (beta * s * _gam) /*/ n*/;
 	}
 	
 	

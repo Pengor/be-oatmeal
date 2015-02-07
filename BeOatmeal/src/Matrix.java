@@ -31,6 +31,27 @@ public class Matrix {
 	}
 	
 	
+	
+	
+	/** Returns the number of rows in this Matrix
+	 * @return The number of rows in this Matrix
+	 */
+	public int getM() {
+		return m;
+	}
+	
+	
+	
+	
+	/** Returns the number of columns in this Matrix
+	 * @return The number of columns in this Matrix
+	 */
+	public int getN() {
+		return n;
+	}
+	
+	
+	
 	/**Sets the entry in the ith row and the jth column of this Matrix
 	 * @param i The index of the ith row
 	 * @param j The index of the jth column
@@ -112,8 +133,8 @@ public class Matrix {
 	public void multL(Matrix x) throws Exception {
 		double[][] temp = mult(this, x);
 		
-		this.n = temp.length;
-		this.m = temp[0].length;
+		this.m = temp.length;
+		this.n = temp[0].length;
 		this.nums = temp;
 	}
 	
@@ -135,8 +156,8 @@ public class Matrix {
 	public void multR(Matrix x) throws Exception {
 		double[][] temp = mult(x, this);
 		
-		this.n = temp.length;
-		this.m = temp[0].length;
+		this.m = temp.length;
+		this.n = temp[0].length;
 		this.nums = temp;
 	}
 	
@@ -160,7 +181,7 @@ public class Matrix {
 	 * @throws Exception 
 	 */
 	private static double[][] mult(Matrix x, Matrix y) throws Exception {
-		if (x.m != y.n)
+		if (x.n != y.m)
 			throw new Exception();
 		
 		double[][] temp = new double[x.m][y.n];
@@ -173,5 +194,24 @@ public class Matrix {
 		}
 		
 		return temp;
+	}
+	
+	
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		
+		for (int i = 0; i < m; i++) {
+			sb.append("[");
+			for (int j = 0; j < n-1; j++) {
+				sb.append(nums[i][j] + ", ");
+			}
+			sb.append(nums[i][n-1] + "]\n");
+		}
+		
+		return sb.toString();
 	}
 }
