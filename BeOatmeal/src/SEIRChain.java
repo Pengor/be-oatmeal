@@ -97,10 +97,12 @@ public class SEIRChain extends MarkovChain {
 	protected void iterate() throws Exception {
 		x_n.multL(a);
 		x_i.add(x_n.copy());
+		
 		s = x_n.get(0, 0);
 		e = x_n.get(1, 0);
 		i = x_n.get(2, 0);
 		r = x_n.get(3, 0);
+		
 		setP();
 		setA();
 	}
