@@ -9,7 +9,6 @@ public class SEIRChain extends MarkovChain {
 	private double i; // people infectious
 	private double i_0;
 	private double r; // people removed
-	private double r_0;
 
 	private double n;
 
@@ -24,7 +23,8 @@ public class SEIRChain extends MarkovChain {
 	private double _gam;
 	private double p_r;
 
-	
+	private double r_0;
+	private ArrayList<Double> r_i;
 	
 	/**
 	 * Constructor
@@ -39,14 +39,14 @@ public class SEIRChain extends MarkovChain {
 	
 	/**
 	 * Constructor
-	 * @param n
-	 * @param s_0
-	 * @param e_0
-	 * @param i_0
-	 * @param h
-	 * @param beta
-	 * @param delt
-	 * @param gam
+	 * @param n The number of individuals in the population
+	 * @param s_0 The initial proportion of susceptible individuals
+	 * @param e_0 The initial proportion of exposed individuals
+	 * @param i_0 The initial proportion of infectious individuals
+	 * @param h The specified interval in time between iterations
+	 * @param beta The transmission parameter
+	 * @param delt The inverse of the mean incubation period
+	 * @param gam The inverse of the mean infectious period
 	 */
 	public SEIRChain(double n, double s_0, double e_0, double i_0, 
 			double beta, double h, double gam, double delt) {
@@ -62,16 +62,13 @@ public class SEIRChain extends MarkovChain {
 		this.i_0 = i_0;
 		this.i = this.i_0;
 		
-		this.r_0 = 0;
-		this.r = this.r_0;
+		this.r = 0;
 		
 		this.n = n;
 
 		this.h = h;
 		
 		this.beta = beta;
-
-		this.p = 1 - Math.pow(Math.E, (-beta * h * i_0) / n);
 		
 		setP();
 		
@@ -86,7 +83,9 @@ public class SEIRChain extends MarkovChain {
 		
 		//Set initial a matrix
 		this.setA();
-
+		
+		//Calculate R_0
+		setR_0();
 	}
 
 	
@@ -116,6 +115,9 @@ public class SEIRChain extends MarkovChain {
 		
 		setP();
 		setA();
+		
+		setR_0();
+		r_i.add(r_0);
 	}
 	
 	
@@ -125,6 +127,15 @@ public class SEIRChain extends MarkovChain {
 	 */
 	private void setP() {
 		p = 1 - Math.pow(Math.E, (-beta * h * i) / n);
+	}
+	
+	
+	
+	/**
+	 * Calculates R_0 for the current parameters
+	 */
+	private void setR_0() {
+		r_0 = (beta * s * _gam) / n;
 	}
 	
 	
@@ -145,7 +156,7 @@ public class SEIRChain extends MarkovChain {
 	
 	
 	/**
-	 * Sets matrix a based on current values of p, p_c, and p_r
+	 * Sets matrix based on current values of p, p_c, and p_r
 	 */
 	private void setA() {
 		double[][] temp = new double[4][4];
