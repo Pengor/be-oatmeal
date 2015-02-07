@@ -6,7 +6,7 @@ public class MarkovChain {
 	protected Matrix x_0;
 	
 	protected Matrix x_n;
-	private ArrayList<Matrix> x_i;
+	protected ArrayList<Matrix> x_i;
 	
 	
 	/**
@@ -31,6 +31,5 @@ public class MarkovChain {
 	protected void iterate() throws Exception {
 		x_n.multL(a);
 		x_i.add(x_n.copy());
-		
 	}
 }
