@@ -59,6 +59,22 @@ public class SEIRChain extends MarkovChain {
 		this.p_r = 1 - Math.pow(Math.E, -gam * h);
 		
 		//Set initial state vector
+		this.setX_0();
+		
+		//Set initial a matrix
+		this.setA();
+	}
+	
+	/**
+	 * @throws Exception
+	 */
+	@Override
+	protected void iterate() throws Exception {
+		x_n.multL(a);
+		x_i.add(x_n.copy());
+	}
+	
+	private void setX_0() {
 		double[][] temp = new double[4][1];
 		temp[0][0] = s;
 		temp[1][0] = e;
@@ -66,9 +82,10 @@ public class SEIRChain extends MarkovChain {
 		temp[3][0] = r;
 		
 		this.x_0 = new Matrix(temp);
-		
-		//Set initial a matrix
-		temp = new double[4][4];
+	}
+	
+	private void setA() {
+		double[][] temp = new double[4][4];
 		
 		temp[0][0] = 1 - p;
 		temp[0][1] = 0;
@@ -91,14 +108,5 @@ public class SEIRChain extends MarkovChain {
 		temp[3][3] = 1;
 		
 		this.a = new Matrix(temp);
-	}
-	
-	/**
-	 * @throws Exception
-	 */
-	@Override
-	protected void iterate() throws Exception {
-		x_n.multL(a);
-		x_i.add(x_n.copy());
 	}
 }
