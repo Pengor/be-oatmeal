@@ -14,7 +14,7 @@ public class ChainDriver {
 		try (BufferedWriter writer = Files.newBufferedWriter(out, charset)) {
 		    
 			SEIRChain mainChain = new SEIRChain(270114, 0.99574, 0.00123, 0.00123, 0.2, 1, 0.143, 0.2);
-			writer.write("Iteration #,S,E,I,R\n");
+			writer.write("Iteration #,S,E,I,R,R_0\n");
 			
 			int i = 0;
 			mainChain.iterate();
@@ -22,7 +22,7 @@ public class ChainDriver {
 			while (tempMat.get(1, 0) > 0.0001 && tempMat.get(2, 0) > 0.0001) {
 				
 				writer.write(i+"," + tempMat.get(0,0) + "," + tempMat.get(1,0) +
-						"," + tempMat.get(2,0) + "," + tempMat.get(3,0) + "\n");
+						"," + tempMat.get(2,0) + "," + tempMat.get(3,0) + ", " + mainChain.getR_0() + "\n");
 
 				mainChain.iterate();
 				i++;

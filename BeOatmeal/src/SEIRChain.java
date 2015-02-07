@@ -103,6 +103,9 @@ public class SEIRChain extends MarkovChain {
 	
 	
 	
+	
+	
+	
 	/**
 	 * Generates the next state vector and stochastic matrix pair
 	 * @throws Exception
@@ -131,6 +134,15 @@ public class SEIRChain extends MarkovChain {
 	 */
 	private void setP() {
 		p = 1 - Math.pow(Math.E, (-beta * h * i) /*/ n*/);
+	}
+	
+	
+	
+	/** Returns the R_naught at this iteration
+	 * @return Returns R_0
+	 */
+	public double getR_0() {
+		return r_0;
 	}
 	
 	
@@ -185,32 +197,6 @@ public class SEIRChain extends MarkovChain {
 		temp[3][2] = p_r;
 		temp[3][3] = 1;
 		
-		
-		/*temp[0][0] = 1 - p;
-		temp[0][1] = p;
-		temp[0][2] = 0;
-		temp[0][3] = 0;
-		
-		temp[1][0] = 0; 
-		temp[1][1] = 1 - p_c;
-		temp[1][2] = p_c;
-		temp[1][3] = 0;
-		
-		temp[2][0] = 0; 
-		temp[2][1] = 0;
-		temp[2][2] = 1 - p_r;
-		temp[2][3] = p_r;
-		
-		temp[3][0] = 0; 
-		temp[3][1] = 0;
-		temp[3][2] = 0;
-		temp[3][3] = 1;*/
-		
 		this.a = new Matrix(temp);
-	}
-	
-	
-	public double getP_r() {
-		return p_r;
 	}
 }
