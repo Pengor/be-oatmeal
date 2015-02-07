@@ -29,7 +29,9 @@ public class SEIRChain extends MarkovChain {
 	}
 	
 	
-	//public SEIRChain
+	public SEIRChain(double n, double s_0, double e_0, double i_0, double beta, double gam, double delt) {
+		super(null, null);
+	}
 	
 	/**
 	 * @throws Exception
