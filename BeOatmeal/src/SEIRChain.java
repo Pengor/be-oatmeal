@@ -9,7 +9,6 @@ public class SEIRChain extends MarkovChain {
 	private double i; // people infectious
 	private double i_0;
 	private double r; // people removed
-	private double r_0;
 
 	private double n;
 
@@ -24,7 +23,8 @@ public class SEIRChain extends MarkovChain {
 	private double _gam;
 	private double p_r;
 
-	
+	private double r_0;
+	private ArrayList<Double> r_i;
 	
 	/**
 	 * Constructor
@@ -62,8 +62,7 @@ public class SEIRChain extends MarkovChain {
 		this.i_0 = i_0;
 		this.i = this.i_0;
 		
-		this.r_0 = 0;
-		this.r = this.r_0;
+		this.r = 0;
 		
 		this.n = n;
 
@@ -84,7 +83,9 @@ public class SEIRChain extends MarkovChain {
 		
 		//Set initial a matrix
 		this.setA();
-
+		
+		//Calculate R_0
+		setR_0();
 	}
 
 	
@@ -114,6 +115,9 @@ public class SEIRChain extends MarkovChain {
 		
 		setP();
 		setA();
+		
+		setR_0();
+		r_i.add(r_0);
 	}
 	
 	
@@ -123,6 +127,15 @@ public class SEIRChain extends MarkovChain {
 	 */
 	private void setP() {
 		p = 1 - Math.pow(Math.E, (-beta * h * i) / n);
+	}
+	
+	
+	
+	/**
+	 * Calculates R_0 for the current parameters
+	 */
+	private void setR_0() {
+		r_0 = (beta * s * _gam) / n;
 	}
 	
 	
