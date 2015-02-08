@@ -2,6 +2,8 @@ import java.util.ArrayList;
 
 public class SEIRChain extends MarkovChain {
 
+	private boolean med;
+	
 	private double s; // people susceptible
 	private double s_0;
 	private double e; // people exposed
@@ -23,6 +25,14 @@ public class SEIRChain extends MarkovChain {
 	private double _gam;
 	private double p_r;
 
+	private double m;
+	private double n_m;
+	private double p_m;
+	
+	private double v;
+	private double n_v;
+	private double p_v;
+	
 	private double r_0;
 	private ArrayList<Double> r_i;
 	
@@ -51,7 +61,9 @@ public class SEIRChain extends MarkovChain {
 	public SEIRChain(double n, double s_0, double e_0, double i_0, 
 			double beta, double h, double gam, double delt) {
 		super();
-
+		
+		med = false;
+		
 		//Set initial fields
 		this.s_0 = s_0;
 		this.s = this.s_0;
@@ -94,6 +106,39 @@ public class SEIRChain extends MarkovChain {
 
 	
 	
+	/**
+	 * Constructor
+	 * @param n The number of individuals in the population
+	 * @param s_0 The initial proportion of susceptible individuals
+	 * @param e_0 The initial proportion of exposed individuals
+	 * @param i_0 The initial proportion of infectious individuals
+	 * @param h The specified interval in time between iterations
+	 * @param beta The transmission parameter
+	 * @param delt The inverse of the mean incubation period
+	 * @param gam The inverse of the mean infectious period
+	 * @throws Exception 
+	 */
+	public SEIRChain(double n, double s_0, double e_0, double i_0, 
+			double beta, double h, double gam, double delt,
+			double n_v, double p_v, double n_m, double p_m) throws Exception {
+		this(n, s_0, e_0, i_0, beta, h, gam, delt);
+		
+		med = true;
+		
+		this.n_v = n_v;
+		this.p_v = p_v;
+		
+		setM(); 
+		
+		this.n_m = n_m;
+		this.p_m = p_m;
+		
+		setV();
+		setAMed();
+	}
+	
+	
+	
 	/**Returns the ArrayList of all x_i values
 	 * @return The ArrayList x_i
 	 */
@@ -130,10 +175,36 @@ public class SEIRChain extends MarkovChain {
 	
 	
 	/**
+	 * Generates the next state vector and stochastic matrix pair
+	 * @throws Exception
+	 */
+	protected void iterMed() throws Exception {
+		if (med) {	
+			x_n.multR(a);
+			x_i.add(x_n.copy());
+			
+			s = x_n.get(0, 0);
+			e = x_n.get(1, 0);
+			i = x_n.get(2, 0);
+			r = x_n.get(3, 0);
+			
+			setP();
+			setM();
+			setV();
+			setAMed();
+			
+			setR_0();
+			r_i.add(r_0);
+		}
+	}
+	
+	
+	
+	/**
 	 * Sets p based on current values of beta, h, i, and n
 	 */
 	private void setP() {
-		p = 1 - Math.pow(Math.E, (-beta * h * i) /*/ n*/);
+		p = 1 - Math.pow(Math.E, (-beta * h * i));
 	}
 	
 	
@@ -151,7 +222,7 @@ public class SEIRChain extends MarkovChain {
 	 * Calculates R_0 for the current parameters
 	 */
 	private void setR_0() {
-		r_0 = (beta * s * _gam) /*/ n*/;
+		r_0 = (beta * s * _gam);
 	}
 	
 	
@@ -198,5 +269,54 @@ public class SEIRChain extends MarkovChain {
 		temp[3][3] = 1;
 		
 		this.a = new Matrix(temp);
+	}
+	
+	
+	
+	/**
+	 * Sets matrix based on current values of p, p_c, p_r, m, and v
+	 */
+	private void setAMed() {
+		double[][] temp = new double[4][4];
+		
+		temp[0][0] = 1 - p - v;
+		temp[0][1] = 0;
+		temp[0][2] = 0;
+		temp[0][3] = 0;
+		
+		temp[1][0] = p; 
+		temp[1][1] = 1 - p_c - m;
+		temp[1][2] = 0;
+		temp[1][3] = 0;
+		
+		temp[2][0] = 0; 
+		temp[2][1] = p_c;
+		temp[2][2] = 1 - p_r;
+		temp[2][3] = 0;
+		
+		temp[3][0] = v; 
+		temp[3][1] = m;
+		temp[3][2] = p_r;
+		temp[3][3] = 1;
+		
+		this.a = new Matrix(temp);
+	}
+	
+	
+	
+	/**
+	 * Adjusts the value of M to the current value of E 
+	 */
+	private void setM() {
+		m = (p_m * n_m) / (n * e * (1 - p_c));
+	}
+	
+	
+	
+	/**
+	 * Adjusts the value of M to the current value of E 
+	 */
+	private void setV() {
+		v = (p_v * n_v) / (n * s * (1 - p));
 	}
 }
