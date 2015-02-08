@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class SEIRChain extends MarkovChain {
 
-	private final double CONS_GROWTH = .9;
+	private final double CONS_GROWTH = 1;
 	
 	private boolean med;
 	

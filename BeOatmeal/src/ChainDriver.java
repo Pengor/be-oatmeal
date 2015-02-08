@@ -4,7 +4,7 @@ import java.nio.file.*;
 
 public class ChainDriver {
 
-	private static final boolean MED_VACC = false; 
+	private static final boolean MED_VACC = true; 
 	
 	private static double N 	= 270114;
 	private static double S 	= 0.99574;
@@ -16,10 +16,10 @@ public class ChainDriver {
 	private static double DELT 	= 0.2;
 	private static double GAM 	= 0.143;
 	
-	private static double V 	= 1000;
-	private static double P_V 	= 0.3;
-	private static double M 	= 15;
-	private static double P_M 	= 0.35;
+	private static double V 	= 640;
+	private static double P_V 	= .9;
+	private static double M 	= 0;
+	private static double P_M 	= 0;
 	
 	public static void main(String[] args) throws Exception {
 		Path out;
