@@ -7,6 +7,9 @@ public class ChainDriver {
 	private static final boolean MED_VACC = true; 
 	private static final double TOLERANCE = 0.000001;
 	
+	private static final boolean USE_ITERS = false;
+	private static final int ITERS = 100;
+	
 	private static double N 	= 270114;
 	private static double S 	= 0.99574;
 	private static double E 	= 0.00123;
@@ -63,7 +66,8 @@ public class ChainDriver {
 			int i = 0;
 			mainChain.iterate();
 			Matrix tempMat = mainChain.getX_i().get(i);
-			while (tempMat.get(1, 0) > TOLERANCE || tempMat.get(2, 0) > TOLERANCE) {
+			while (!USE_ITERS ? (tempMat.get(1, 0) > TOLERANCE || tempMat.get(2, 0) > TOLERANCE)
+					: (tempMat.get(1, 0) > TOLERANCE || tempMat.get(2, 0) > TOLERANCE) && i <= ITERS) {
 				
 				writer.write(i+"," + tempMat.get(0,0) + "," + tempMat.get(1,0) +
 						"," + tempMat.get(2,0) + "," + tempMat.get(3,0) + ", " + mainChain.getR_0() + "\n");
@@ -86,7 +90,8 @@ public class ChainDriver {
 			int i = 0;
 			mainChain.iterMed();
 			Matrix tempMat = mainChain.getX_i().get(i);
-			while (tempMat.get(1, 0) > TOLERANCE || tempMat.get(2, 0) > TOLERANCE) {
+			while (!USE_ITERS ? (tempMat.get(1, 0) > TOLERANCE || tempMat.get(2, 0) > TOLERANCE)
+					: (tempMat.get(1, 0) > TOLERANCE || tempMat.get(2, 0) > TOLERANCE) && i <= ITERS) {
 				
 				writer.write(i + "," + tempMat.get(0,0) + "," + tempMat.get(1,0) +
 						"," + tempMat.get(2,0) + "," + tempMat.get(3,0) + "," + tempMat.get(4,0) + ", " + mainChain.getM() + ", " + 
