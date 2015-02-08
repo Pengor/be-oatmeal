@@ -33,6 +33,8 @@ public class SEIRChain extends MarkovChain {
 	private double n_v;
 	private double p_v;
 	
+	private double u;
+	
 	private double r_0;
 	private ArrayList<Double> r_i;
 	
@@ -116,6 +118,10 @@ public class SEIRChain extends MarkovChain {
 	 * @param beta The transmission parameter
 	 * @param delt The inverse of the mean incubation period
 	 * @param gam The inverse of the mean infectious period
+	 * @param n_v
+	 * @param p_v
+	 * @param n_m
+	 * @param p_m
 	 * @throws Exception 
 	 */
 	public SEIRChain(double n, double s_0, double e_0, double i_0, 
@@ -134,7 +140,11 @@ public class SEIRChain extends MarkovChain {
 		this.p_m = p_m;
 		
 		setV();
+		
+		u = 0;
+		
 		setAMed();
+		setX_nMed();
 	}
 	
 	
@@ -187,6 +197,7 @@ public class SEIRChain extends MarkovChain {
 			e = x_n.get(1, 0);
 			i = x_n.get(2, 0);
 			r = x_n.get(3, 0);
+			u = x_n.get(4, 0);
 			
 			setP();
 			setM();
@@ -243,6 +254,23 @@ public class SEIRChain extends MarkovChain {
 	
 	
 	/**
+	 * Sets x_0 for current values of s, e, i, r
+	 */
+	private void setX_nMed() {
+		double[][] temp = new double[5][1];
+		temp[0][0] = s;
+		temp[1][0] = e;
+		temp[2][0] = i;
+		temp[3][0] = r;
+		temp[4][0] = v;
+		
+		this.x_n = new Matrix(temp);
+	}
+	
+	
+	
+	
+	/**
 	 * Sets matrix based on current values of p, p_c, and p_r
 	 */
 	private void setA() {
@@ -277,27 +305,37 @@ public class SEIRChain extends MarkovChain {
 	 * Sets matrix based on current values of p, p_c, p_r, m, and v
 	 */
 	private void setAMed() {
-		double[][] temp = new double[4][4];
+		double[][] temp = new double[5][5];
 		
 		temp[0][0] = 1 - p - v;
 		temp[0][1] = 0;
 		temp[0][2] = 0;
 		temp[0][3] = 0;
+		temp[0][4] = 0;
 		
 		temp[1][0] = p; 
 		temp[1][1] = 1 - p_c - m;
 		temp[1][2] = 0;
 		temp[1][3] = 0;
+		temp[1][4] = 0;
 		
 		temp[2][0] = 0; 
 		temp[2][1] = p_c;
 		temp[2][2] = 1 - p_r;
 		temp[2][3] = 0;
+		temp[2][4] = 0;
 		
-		temp[3][0] = v; 
-		temp[3][1] = m;
+		temp[3][0] = 0; 
+		temp[3][1] = 0;
 		temp[3][2] = p_r;
 		temp[3][3] = 1;
+		temp[3][4] = 0;
+		
+		temp[4][0] = v;
+		temp[4][1] = m;
+		temp[4][2] = 0;
+		temp[4][3] = 0;
+		temp[4][4] = 1;
 		
 		this.a = new Matrix(temp);
 	}
@@ -313,10 +351,34 @@ public class SEIRChain extends MarkovChain {
 	
 	
 	
+	/**Returns the medication coefficient for this iteration
+	 * @return m
+	 */
+	public double getM() {
+		if (med)
+			return m;
+		else
+			return -1;
+	}
+	
+	
+	
 	/**
 	 * Adjusts the value of M to the current value of E 
 	 */
 	private void setV() {
 		v = (p_v * n_v) / (n * s * (1 - p));
+	}
+	
+	
+	
+	/**Returns the vaccination coefficient for this iteration
+	 * @return v
+	 */
+	public double getV() {
+		if (med)
+			return v;
+		else
+			return -1;
 	}
 }
