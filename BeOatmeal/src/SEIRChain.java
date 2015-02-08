@@ -2,6 +2,8 @@ import java.util.ArrayList;
 
 public class SEIRChain extends MarkovChain {
 
+	private final double CONS_GROWTH = .9;
+	
 	private boolean med;
 	
 	private double s; // people susceptible
@@ -346,7 +348,14 @@ public class SEIRChain extends MarkovChain {
 	 * Adjusts the value of M to the current value of E 
 	 */
 	private void setM() {
+		setN_m();
 		m = (p_m * n_m) / (n * e * (1 - p_c));
+	}
+	
+	
+	
+	private void setN_m() {
+		n_m *= CONS_GROWTH;
 	}
 	
 	
@@ -367,7 +376,14 @@ public class SEIRChain extends MarkovChain {
 	 * Adjusts the value of M to the current value of E 
 	 */
 	private void setV() {
+		setN_v();
 		v = (p_v * n_v) / (n * s * (1 - p));
+	}
+	
+	
+	
+	private void setN_v() {
+		n_v *= CONS_GROWTH;
 	}
 	
 	
