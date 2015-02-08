@@ -6,26 +6,50 @@ public class ChainDriver {
 
 	private static final boolean MED_VACC = false; 
 	
-	private static final double N 		= 270114;
-	private static final double S 		= 0.99574;
-	private static final double E 		= 0.00123;
-	private static final double I 		= 0.00123;
+	private static double N 	= 270114;
+	private static double S 	= 0.99574;
+	private static double E 	= 0.00123;
+	private static double I 	= 0.00123;
 	
-	private static final double BETA 	= 0.2;
-	private static final double H 		= 1;
-	private static final double DELT 	= 0.2;
-	private static final double GAM 	= 0.143;
+	private static double BETA 	= 0.2;
+	private static double H 	= 1;
+	private static double DELT 	= 0.2;
+	private static double GAM 	= 0.143;
 	
-	private static final double V 		= 1000;
-	private static final double P_V 	= 0.3;
-	private static final double M 		= 15;
-	private static final double P_M 	= 0.35;
+	private static double V 	= 1000;
+	private static double P_V 	= 0.3;
+	private static double M 	= 15;
+	private static double P_M 	= 0.35;
 	
 	public static void main(String[] args) throws Exception {
-		String filename = "SEIR Generated Data for ";
-		filename += Long.toString(System.currentTimeMillis());
-		filename += ".csv";
-		Path out = FileSystems.getDefault().getPath("C:","GenData",filename);
+		Path out;
+		
+		if (args.length <= 0) {
+			String filename = "SEIR Generated Data for ";
+			filename += Long.toString(System.currentTimeMillis());
+			filename += ".csv";
+			out = FileSystems.getDefault().getPath("C:","GenData",filename);
+		}
+		
+		else {
+			String filename = args[1] + "_" + args[0] + "_" + "SEIR_" + Long.toString(System.currentTimeMillis()) + ".csv";
+			out = FileSystems.getDefault().getPath("C:","GenData",filename);
+			
+			N 		= Double.parseDouble(args[2]);
+			S 		= Double.parseDouble(args[3]);
+			E 		= Double.parseDouble(args[4]);
+			I	 	= Double.parseDouble(args[5]);
+			
+			BETA 	= Double.parseDouble(args[6]);
+			H 		= Double.parseDouble(args[7]);
+			DELT 	= Double.parseDouble(args[8]);
+			GAM 	= Double.parseDouble(args[9]);
+			
+			V 		= Double.parseDouble(args[10]);
+			P_V 	= Double.parseDouble(args[11]);
+			M 		= Double.parseDouble(args[12]);
+			P_M 	= Double.parseDouble(args[13]);
+		}
 		
 		Charset charset = Charset.forName("US-ASCII");
 			
