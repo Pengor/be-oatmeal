@@ -10,17 +10,17 @@ public class ChainDriver {
 	private static final boolean USE_ITERS = false;
 	private static final int ITERS = 100;
 	
-	private static double N 	= 270114;
-	private static double S 	= 0.99574;
-	private static double E 	= 0.00123;
-	private static double I 	= 0.00123;
+	private static double N 	= 18629152;
+	private static double S 	= 0.998826356;
+	private static double E 	= 0.000430669;
+	private static double I 	= 0.000742975;
 	
-	private static double BETA 	= 0.2;
+	private static double BETA 	= 0.33;
 	private static double H 	= 1;
 	private static double DELT 	= 0.2;
 	private static double GAM 	= 0.143;
 	
-	private static double V 	= 640;
+	private static double V 	= 86528.84809;
 	private static double P_V 	= .9;
 	private static double M 	= 0;
 	private static double P_M 	= 0;
