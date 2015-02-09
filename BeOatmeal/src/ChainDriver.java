@@ -8,7 +8,7 @@ public class ChainDriver {
 	private static final double TOLERANCE = 0.000001;
 	
 	private static final boolean USE_ITERS = false;
-	private static final int ITERS = 100;
+	private static final int ITERS = 300;
 	
 	private static double N 	= 270114;
 	private static double S 	= 0.99574;
