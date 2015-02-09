@@ -28,6 +28,7 @@ public class SEIRChain extends MarkovChain {
 	private double p_r;
 
 	private double m;
+	private double p_m;
 	
 	private double v;
 	private double n_v;
@@ -134,6 +135,7 @@ public class SEIRChain extends MarkovChain {
 		this.n_v = n_v;
 		this.p_v = p_v;
 		
+		this.p_m = p_m;
 		setM();
 		
 		setV();
@@ -342,7 +344,7 @@ public class SEIRChain extends MarkovChain {
 	 * Adjusts the value of M to the current value of E 
 	 */
 	private void setM() {
-		m = 1 - (1/getR_0());
+		m = p_m*(1 - (1/getR_0()));
 	}
 
 	
