@@ -28,8 +28,6 @@ public class SEIRChain extends MarkovChain {
 	private double p_r;
 
 	private double m;
-	private double n_m;
-	private double p_m;
 	
 	private double v;
 	private double n_v;
@@ -136,10 +134,7 @@ public class SEIRChain extends MarkovChain {
 		this.n_v = n_v;
 		this.p_v = p_v;
 		
-		setM(); 
-		
-		this.n_m = n_m;
-		this.p_m = p_m;
+		setM();
 		
 		setV();
 		
@@ -202,7 +197,6 @@ public class SEIRChain extends MarkovChain {
 			u = x_n.get(4, 0);
 			
 			setP();
-			setM();
 			setV();
 			setAMed();
 			
@@ -348,17 +342,9 @@ public class SEIRChain extends MarkovChain {
 	 * Adjusts the value of M to the current value of E 
 	 */
 	private void setM() {
-		setN_m();
-		m = (p_m * n_m) / (n * e * (1 - p_c));
+		m = 1 - (1/getR_0());
 	}
-	
-	
-	
-	private void setN_m() {
-		n_m *= CONS_GROWTH;
-	}
-	
-	
+
 	
 	/**Returns the medication coefficient for this iteration
 	 * @return m
